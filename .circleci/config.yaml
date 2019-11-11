@@ -1,0 +1,28 @@
+# Python CircleCI 2.0 configuration file
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/python:3.7
+
+    environment:
+      DEEPSOURCE_DSN: https://eea7e7e11eb24db49f9c64d040c31f6b@deepsource.io
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+        name: current commit
+        command: echo $CIRCLE_SHA
+
+      - run:
+        name: latest commits
+        command: git log -n5
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
